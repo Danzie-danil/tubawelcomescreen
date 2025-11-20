@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TUBA — Welcome</title>
+<link rel="icon" href="./tuba-icon.png">
+<style>
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;color:#fff;overflow:hidden;background:#0b1020}
+.bg{position:fixed;inset:0;background:radial-gradient(1200px 600px at 10% -10%,#1b4de2 0%,transparent 60%),radial-gradient(800px 400px at 110% 110%,#15b7ea 0%,transparent 55%),linear-gradient(135deg,#0b1020 0%,#0f1630 50%,#0b1020 100%);filter:saturate(1.2);animation:bgShift 12s linear infinite}
+@keyframes bgShift{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-1%,1%,0)}100%{transform:translate3d(0,0,0)}}
+.gradient{position:absolute;inset:-50vh -50vw;background:conic-gradient(from 180deg at 50% 50%,rgba(255,255,255,0.06),rgba(255,255,255,0.02),rgba(255,255,255,0.06));filter:blur(120px);animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wrap{position:relative;min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:100%;max-width:720px;background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,0.35);padding:32px 28px;transform:translateY(6px);animation:rise 800ms ease forwards}
+@keyframes rise{to{transform:translateY(0)}}
+.logo{display:flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;background:linear-gradient(145deg,#667eea,#5a67d8);box-shadow:0 12px 30px rgba(90,103,216,0.35);margin:0 auto 12px}
+.logo img{width:48px;height:48px;display:block}
+.title{font-size:28px;font-weight:800;letter-spacing:0.3px;text-align:center;margin:8px 0}
+.subtitle{text-align:center;color:#cfe2ff;font-size:14px;line-height:1.6;margin:4px 0 14px}
+.cta{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.btn{appearance:none;border:none;cursor:pointer;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14px;transition:transform .1s ease,box-shadow .2s ease,opacity .2s ease}
+.btn-primary{color:#fff;background:linear-gradient(145deg,#1976d2,#0d47a1);box-shadow:0 12px 30px rgba(25,118,210,.35)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-secondary{color:#fff;background:linear-gradient(145deg,#2e7d32,#1b5e20);box-shadow:0 12px 30px rgba(46,125,50,.35)}
+.small{opacity:.9;font-size:12px;text-align:center;margin-top:10px}
+.confetti{pointer-events:none;position:fixed;inset:0}
+.piece{position:absolute;width:10px;height:18px;border-radius:3px;opacity:.95;transform:translate3d(0,-100%,0) rotate(0deg)}
+@keyframes fall{0%{transform:translate3d(var(--x),-120%,0) rotate(0deg)}50%{transform:translate3d(calc(var(--x) + 12px),20%,0) rotate(160deg)}100%{transform:translate3d(calc(var(--x) - 8px),110%,0) rotate(320deg)}}
+.divider{height:1px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.25),rgba(255,255,255,0));margin:14px 0}
+.welcome{font-size:16px;text-align:center;color:#e8f1ff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cell{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:14px;text-align:center}
+@media (max-width:640px){.card{padding:24px 20px}.title{font-size:24px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="gradient"></div>
+<div class="wrap">
+  <div class="card">
+    <div class="logo"><img src="./tuba-icon.png" alt="TUBA"></div>
+    <div class="title">Welcome to TUBA</div>
+    <div class="subtitle">Your email is confirmed. You’re all set to manage inventory, sales, and finances with confidence.</div>
+    <div class="divider"></div>
+    <div class="welcome">Quick highlights</div>
+    <div class="grid">
+      <div class="cell">Inventory & Stock</div>
+      <div class="cell">Sales & Receipts</div>
+      <div class="cell">Money Transactions</div>
+      <div class="cell">Insights & Reports</div>
+    </div>
+    <div class="cta">
+      <button class="btn btn-primary" id="openApp">Enter App</button>
+      <a class="btn btn-secondary" href="https://tuba-finances.vercel.app/" rel="noopener">Open in Browser</a>
+    </div>
+    <div class="small">Use the buttons above to start. Happy building!</div>
+  </div>
+</div>
+<div class="confetti" id="confetti"></div>
+<script>
+var open=document.getElementById('openApp');
+if(open){open.addEventListener('click',function(){window.location.href='https://tuba-finances.vercel.app/';});}
+var c=document.getElementById('confetti');
+var colors=['#ff6b6b','#ffd93d','#6bcB77','#4d96ff','#b07dfd'];
+var count=80;
+for(var i=0;i<count;i++){var s=document.createElement('span');s.className='piece';var x=Math.floor(Math.random()*100)+'vw';s.style.setProperty('--x',x);var d=Math.random()*0.8+0.2;var t=Math.random()*4+6;s.style.animation='fall '+t+'s ease-in '+(i*0.03)+'s forwards';s.style.background=colors[i%colors.length];s.style.opacity=d; s.style.left=x;c.appendChild(s);} 
+</script>
+</body>
+</html>
