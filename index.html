@@ -418,12 +418,13 @@
             method: 'PUT',
             headers: {
               'Authorization': `Bearer ${accessToken}`,
+              'apikey': SUPABASE_KEY,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ password })
           });
 
-          const data = await response.json();
+          const data = await response.json().catch(() => ({}));
 
           if (response.ok) {
             showAlert('✓ Password updated successfully! Redirecting to app...', 'success');
@@ -431,7 +432,8 @@
               window.location.href = 'https://tuba-finances.vercel.app/';
             }, 2000);
           } else {
-            throw new Error(data.error_description || 'Password reset failed');
+            const msg = (data && (data.error_description || data.message || data.error || data.msg)) || 'Password reset failed';
+            throw new Error(msg);
           }
         } catch (error) {
           console.error('Reset error:', error);
